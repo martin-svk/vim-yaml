@@ -1,37 +1,36 @@
 " Vim indent file
 " Language: Yaml
-" Author: Ian Young
+" Authors: Ian Young, Martin Toma <http://www.martintoma.com>
 
-if exists("b:did_indent")
+if exists('b:did_indent')
   finish
 endif
-"runtime! indent/ruby.vim
-"unlet! b:did_indent
+
 let b:did_indent = 1
 
-setlocal autoindent sw=2 et
+setlocal autoindent shiftwidth=2 expandtab
 setlocal indentexpr=GetYamlIndent()
 setlocal indentkeys=o,O,*<Return>,!^F
 
-function! GetYamlIndent()
-  let prevlnum = v:lnum - 1
-  if prevlnum == 0
+function! g:GetYamlIndent()
+  let l:prevlnum = v:lnum - 1
+
+  if l:prevlnum == 0
     return 0
   endif
-  let line = substitute(getline(v:lnum),'\s\+$','','')
-  let prevline = substitute(getline(prevlnum),'\s\+$','','')
 
-  let indent = indent(prevlnum)
-  let increase = indent + &sw
-  let decrease = indent - &sw
+  let l:line = substitute(getline(v:lnum),'\s\+$','','')
+  let l:prevline = substitute(getline(l:prevlnum),'\s\+$','','')
 
-  if prevline =~ ':$'
-    return increase
-  elseif prevline =~ '^\s\+\-' && line =~ '^\s\+[^-]\+:'
-    return decrease
+  let l:indent = indent(l:prevlnum)
+  let l:increase = l:indent + &shiftwidth
+  let l:decrease = l:indent - &shiftwidth
+
+  if l:prevline =~# ':$'
+    return l:increase
+  elseif l:prevline =~? '^\s\+\-' && l:line =~? '^\s\+[^-]\+:'
+    return l:decrease
   else
-    return indent
+    return l:indent
   endif
 endfunction
-
-" vim:set sw=2:
