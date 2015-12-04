@@ -1,10 +1,7 @@
 Vim-YAML
 ---
 
-## Info
-
-This is maintained fork of [vim-yaml](https://github.com/avakhov/vim-yaml)
-an indent plugin for Vim to fix indentation for YAML files.
+This is a maintained fork of [vim-yaml](https://github.com/avakhov/vim-yaml) a YAML indent plugin for Vim.
 
 ## Install
 
